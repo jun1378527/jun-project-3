@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한글 분리 및 물리 시뮬레이션</title>
+    <link rel="stylesheet" href="css/matter.css">
+    <script src="js/decomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.0/matter.min.js"></script>
+
+</head>
+<body>
+    <div class="inputArea">
+        <input type="text" id="textInput" placeholder="여기에 텍스트를 입력하세요">
+        <button id="submitBtn">입력</button>
+    </div>
+    <div id="scene"></div>
+
+    <script src="js/matter.js"></script>
+    <script>
+        function createPhysicalText(text, x, y) {
+        const decomposedText = decomposeHangul(text);
+        decomposedText.forEach((parts, index) => {
+        parts.forEach((part, partIndex) => {
+
+            if (part && glyphImages[part]) {
+                const imagePath = glyphImages[part];
+                const partBody = Bodies.rectangle(x + (index * 45), y + (partIndex * 60), 40, 40, {
+                    render: {
+                        sprite: { texture: imagePath }
+                    }
+                });
+                World.add(engine.world, partBody);
+            }
+        });
+    });
+}
+console.log(decomposeHangul("안녕"));
+
+    </script>
+</body>
+</html>
