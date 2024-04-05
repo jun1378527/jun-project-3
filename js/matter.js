@@ -44,6 +44,11 @@ function addMountain() {
     [vertices],
     {
       isStatic: true,
+      render: {
+        fillStyle: "green", // 초록색 채우기
+        strokeStyle: "green", // 테두리 색상도 초록색으로 맞추기 (선택적)
+        lineWidth: 1, // 테두리 두께 (선택적)
+      },
     },
     true
   );
