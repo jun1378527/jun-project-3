@@ -16,26 +16,20 @@ const render = Render.create({
 let mountain = [];
 
 function addMountain() {
-  // 입력창 높이 계산
   const inputAreaHeight = document.querySelector(".inputArea").offsetHeight;
 
-  // 월드에서 기존의 산을 제거
   World.remove(engine.world, mountain);
 
-  // 화면 크기와 입력창 높이를 고려하여 산의 기본 위치 설정
-  const baseX = 0; // 왼쪽 벽에 맞닿음
-  const baseY = window.innerHeight - inputAreaHeight; // 입력창 바로 위에 맞닿음
+  const baseX = 0;
+  const baseY = window.innerHeight - inputAreaHeight;
 
-  // 산의 높이와 너비 설정 (화면 높이 또는 너비에 맞춰 조정 가능)
-  const mountainHeight = baseY * 2.5; // 화면 높이에서 입력창 높이를 제외한 만큼
-  const mountainWidth = mountainHeight; // 직각 삼각형이므로 높이와 너비 동일
+  const mountainHeight = baseY * 2.5;
+  const mountainWidth = mountainHeight;
 
-  // 직각 삼각형 산 생성
-  // Matter.js에서는 직접적으로 직각 삼각형을 만드는 기능이 없으므로, vertices를 사용
   const vertices = [
-    { x: baseX, y: baseY }, // 왼쪽 아래 꼭짓점
-    { x: baseX + mountainWidth, y: baseY }, // 오른쪽 아래 꼭짓점
-    { x: baseX, y: baseY - mountainHeight }, // 왼쪽 위 꼭짓점
+    { x: baseX, y: baseY },
+    { x: baseX + mountainWidth, y: baseY },
+    { x: baseX, y: baseY - mountainHeight },
   ];
 
   mountain = Bodies.fromVertices(
@@ -45,9 +39,9 @@ function addMountain() {
     {
       isStatic: true,
       render: {
-        fillStyle: "green", // 초록색 채우기
-        strokeStyle: "green", // 테두리 색상도 초록색으로 맞추기 (선택적)
-        lineWidth: 1, // 테두리 두께 (선택적)
+        fillStyle: "green",
+        strokeStyle: "green",
+        lineWidth: 1,
       },
     },
     true
@@ -72,7 +66,6 @@ function updateRendererSize() {
 
 window.addEventListener("resize", updateRendererSize);
 
-// 초기 산 추가 및 렌더러 크기 업데이트
 addMountain();
 updateRendererSize();
 
@@ -81,12 +74,30 @@ const runner = Runner.create();
 Runner.run(runner, engine);
 
 document.getElementById("submitBtn").addEventListener("click", function () {
-  const inputText = document.getElementById("textInput").value;
-  if (inputText.trim() === "") {
+  const inputText = document
+    .getElementById("textInput")
+    .value.trim()
+    .toLowerCase();
+
+  if (inputText === "") {
     alert("텍스트를 입력해 주세요.");
     return;
   }
-  createPhysicalText(inputText, 200, 200);
+
+  let velocity = { x: 0, y: 0 };
+
+  // 동물 이름에 따른 속도와 방향 조정 실험상 아무거나
+  if (inputText === "고양이") {
+    velocity.y = -10;
+  } else if (inputText === "거북이") {
+    velocity.y = -1;
+  } else if (inputText === "새") {
+    velocity.y = -15;
+    velocity.x = 15;
+  }
+
+  createPhysicalText(inputText, 200, 200, velocity);
+
   document.getElementById("textInput").value = "";
 });
 

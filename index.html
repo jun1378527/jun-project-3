@@ -18,11 +18,11 @@
 
     <script src="js/matter.js"></script>
     <script>
-        function createPhysicalText(text, x, y) {
-        const decomposedText = decomposeHangul(text);
-        decomposedText.forEach((parts, index) => {
-        parts.forEach((part, partIndex) => {
 
+function createPhysicalText(text, x, y, velocity) {
+    const decomposedText = decomposeHangul(text);
+    decomposedText.forEach((parts, index) => {
+        parts.forEach((part, partIndex) => {
             if (part && glyphImages[part]) {
                 const imagePath = glyphImages[part];
                 const partBody = Bodies.rectangle(x + (index * 45), y + (partIndex * 60), 40, 40, {
@@ -30,11 +30,16 @@
                         sprite: { texture: imagePath }
                     }
                 });
+
+
+                Body.setVelocity(partBody, velocity);
+
                 World.add(engine.world, partBody);
             }
         });
     });
 }
+
 console.log(decomposeHangul("안녕"));
 
     </script>
