@@ -7,22 +7,22 @@ body, html {
     padding: 0;
     overflow: hidden;
     height: 100%;
-    position: relative; /* 상대적 위치 설정 */
+    position: relative; 
 }
 
 .inputArea {
-    position: fixed; /* 입력창을 화면 하단에 고정 */
-    bottom: 0; /* 하단에 위치 */
-    left: 0; /* 왼쪽에 위치 */
-    width: 100%; /* 너비를 화면 전체로 설정 */
-    padding: 20px; /* 패딩 설정 */
-    background-color: #ffffff; /* 배경색 설정 */
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1); /* 그림자 효과 */
-    z-index: 100; /* 다른 요소들 위에 위치하도록 z-index 설정 */
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    padding: 20px; 
+    background-color: #ffffff; 
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1); 
+    z-index: 100; 
 }
 
 #scene {
     flex: 1; 
-    background-color: #f0f0f0; /* 적당한 배경색 설정 */
-    overflow: hidden; /* 내부 콘텐츠가 범위를 초과하는 것을 방지 */
+    background-color: #f0f0f0; 
+    overflow: hidden; 
 }

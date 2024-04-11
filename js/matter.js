@@ -255,3 +255,19 @@ const createRollingText = (text, x, y) => {
   const textBody = createPhysicalText(text, x, y);
   Body.setVelocity(textBody, { x: 5, y: -5 });
 };
+
+function debounce(func, wait) {
+  let timeout;
+
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      timeout = null;
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+const debouncedUpdateRendererSize = debounce(updateRendererSize, 250);
